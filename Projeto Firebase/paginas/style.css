@@ -1,0 +1,402 @@
+body {
+	text-align: center;
+	background: #006;
+}
+
+
+
+
+/*
+body {
+    heigth: 800px;
+	background: -webkit-linear-gradient(#fff, #00F);
+	background: -moz-linear-gradient (#fff, #f2081e);
+	background: ms-linear-gradient (#fff, #072df1);
+	background: -o-linear-gradient (#fff, #f2081e);
+	background-repeat: no-repeat;
+	background-attachment: fixed; 
+	}
+	*/
+.ligado {
+	width: 440px;
+	 font-size:35px;
+  font-family:Arial; 
+  border-width:1px;
+  color:#FFF;
+  border-color:#4e6096;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+ box-shadow: 5px 5px 5px 0px #FFF;
+  text-shadow: 0px 1px 0px #283966;
+  background:linear-gradient(rgb(120, 146, 194), #000);
+  
+}
+
+
+
+
+.ligado1 {
+	 font-size:40px;
+  font-family:Arial; 
+  border-width:1px;
+  color:#F00; 
+   font-weight: bold;
+  
+}
+.desligado {
+	font-size: 40px;
+	font-family: Arial;
+	border-width: 1px;
+	color: #000;
+	font-weight: bold;
+	font-style: italic;
+	font-weight: bold;
+  
+}
+
+ .jms {
+	width: 480px;
+	height: 280px;
+	background:url(img/AndernC.png)no-repeat left bottom;
+	
+		
+	}
+	
+	.letras2{
+		margin-top:20px;	
+	padding:20px;
+	 -webkit-text-stroke-width: 1px; /* largura da borda */
+    -webkit-text-stroke-color: #0F0; /* cor da borda */
+	border-radius: 10px;
+	 font-size:50px;	 
+	font-weight: bold;
+	font-style: italic;		
+	color:#000;
+	text-align:center;
+	background:  linear-gradient( 45deg, red, green, yellow, blue );
+	box-shadow:20px 20px 10px #060;
+	-webkit-box-shadow: 20px 20px 10px #000;
+	-moz-box-shadow: 20px 20px 10px #000;
+		
+	 } 
+	 
+	 .clockStyle {
+	background-color: #666;
+	border: #FFF 2px inset;
+	padding: 6px;
+	color: #0F6;
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 50px;
+	font-weight: bold;
+	letter-spacing: 2px;
+	display: inline;
+}
+
+
+.horaatual {
+	font-size:30px;
+	font-weight: bold;
+	font-family:Arial;
+	color: rgb(0,255,0);
+}
+
+
+
+
+	
+
+
+.wrapper{
+    height: 30px;
+    width: 480px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+	cursor: pointer;
+	 margin: 30px;	 
+}
+.progress {
+    margin: 30px;
+    width: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.toggle-btn{
+	width: 480px;
+	height: 170px;
+	background: #999;
+	border-radius: 10px;	
+	transition: all 300ms ease-in-out;
+	 
+	background: url(img/aberto.png)no-repeat left bottom;
+	margin-top:10px;
+}
+
+	 .toggle-btn1, .toggle-btn2, .toggle-btn3,.toggle-btn4, .toggle-btn5, .toggle-btn6, .toggle-btn7 {
+	width: 480px;
+	height: 170px;
+	background: #999;
+	border-radius: 10px;	
+	transition: all 300ms ease-in-out;
+	cursor: pointer;
+	background: url(img/desligado.png)no-repeat left bottom;
+	margin-top:10px;
+}
+	
+
+.toggle-btn.active{	
+	background: url(img/fechado.png)no-repeat left bottom;
+	/*box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;*/
+	
+	
+}
+.toggle-btn1.active{
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	
+	
+}
+.toggle-btn2.active{	
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	
+}
+.toggle-btn3.active{
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	
+}
+
+.toggle-btn4.active{
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	
+}
+.toggle-btn5.active{
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	transition-delay: 0.5s;
+}
+
+
+.toggle-btn6.active{
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	
+}
+.toggle-btn7.active{
+	background: url(img/ligado.png)no-repeat left bottom;
+	box-shadow: 0 0 10px #a3f321, 0 0 40px #a3f321, 0 0 80px #a3f321;
+	transition-delay: 0.5s;
+}
+
+.toggle-btn.active>.inner-circle,  .toggle-btn1.active>.inner-circle,  .toggle-btn2.active>.inner-circle,  .toggle-btn3.active>.inner-circle,   .toggle-btn4.active>.inner-circle,  .toggle-btn5.active>.inner-circle,  .toggle-btn6.active>.inner-circle,.toggle-btn7.active>.inner-circle {
+	margin-left: 300px; /*margem da bola */
+}
+
+
+
+.icon1{	
+	color: #fff;
+	margin: 10px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+.clock{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  background: #e9fcfc;
+  border-radius: 50%;
+  border: 16px solid #303030;
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.8);
+}
+.clock:before{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '';
+  width: 259px;
+  height: 259px;
+  border: 6px solid #202020;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+.clock:after{
+  position: absolute;
+  content: '';
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background: #59c3ff;
+  z-index: 1;
+}
+.center-nut,.center-nut2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.center-nut{
+  height: 15px;
+  width: 15px;
+  background: #262626;
+  z-index: 2;
+}
+.center-nut2{
+  width: 9px;
+  height: 9px;
+  background: red;
+  z-index: 6;
+}
+.indicator div{
+  position: absolute;
+  width: 2px;
+  height: 5px;
+  background: #404040;
+}
+.indicator div:nth-child(1) {
+  transform: rotate(30deg) translateY(-113px);
+}
+.indicator div:nth-child(2) {
+  transform: rotate(60deg) translateY(-113px);
+}
+.indicator div:nth-child(3) {
+  transform: rotate(90deg) translateY(-113px);
+  background: red;
+}
+.indicator div:nth-child(4) {
+  transform: rotate(120deg) translateY(-113px);
+}
+.indicator div:nth-child(5) {
+  transform: rotate(150deg) translateY(-113px);
+}
+.indicator div:nth-child(6) {
+  transform: rotate(180deg) translateY(-113px);
+  background: red;
+}
+.indicator div:nth-child(7) {
+  transform: rotate(210deg) translateY(-113px);
+}
+.indicator div:nth-child(8) {
+  transform: rotate(240deg) translateY(-113px);
+}
+.indicator div:nth-child(9) {
+  transform: rotate(270deg) translateY(-113px);
+  background: red;
+}
+.indicator div:nth-child(10) {
+  transform: rotate(300deg) translateY(-113px);
+}
+.indicator div:nth-child(11) {
+  transform: rotate(330deg) translateY(-113px);
+}
+.indicator div:nth-child(12) {
+  transform: rotate(360deg) translateY(-113px);
+  background: red;
+}
+.sec-hand{
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  z-index: 5;
+  animation: sec-hand 60s linear infinite;
+}
+.sec-hand:before{
+  position: absolute;
+  content: '';
+  height: 130px;
+  width: 3px;
+  left: -1px;
+  top: -25px;
+  background: red;
+  border-radius: 3px;
+}
+.sec-hand:after{
+  position: absolute;
+  content: '';
+  height: 45px;
+  width: 7px;
+  left: -3px;
+  top: -55px;
+  background: red;
+  border-radius: 3px;
+}
+.min-hand{
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  z-index: 4;
+  animation: min-hand 3600s linear infinite;
+}
+.min-hand:before{
+  position: absolute;
+  content: '';
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 70px solid #303030;
+  left: -3px;
+  top: -95px;
+  width: 1px;
+  height: 1px;
+}
+.min-hand:after{
+  position: absolute;
+  content: '';
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-top: 25px solid #303030;
+  left: -3px;
+  top: -25px;
+  width: 3px;
+  height: 1px;
+}
+.hr-hand{
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  z-index: 3;
+  animation: hr-hand 43200s linear infinite;
+}
+.hr-hand:before{
+  position: absolute;
+  content: '';
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 55px solid #303030;
+  left: -3px;
+  top: -75px;
+  width: 1px;
+  height: 1px;
+}
+.hr-hand:after{
+  position: absolute;
+  content: '';
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-top: 20px solid #303030;
+  left: -3px;
+  top: -20px;
+  width: 3px;
+  height: 1px;
+}
+
