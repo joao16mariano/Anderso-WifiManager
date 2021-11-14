@@ -1,0 +1,28 @@
+
+
+para mudar para outro usuáro é só substituir no script o  "location= " para o usuário correspondente:
+
+
+Thiago:       location="https://projetocasa-30c30.web.app/paginas/index.html"
+Anderson:     location="https://anderson-39bae.web.app/paginas/index.html"
+Rafael   :    location="https://rafa-fb8cc.web.app/paginas/index.html"
+Joao     :    location="https://arduino-fa8b5.web.app/paginas/index.html"
+
+
+nome: admin
+senha:aqws
+podem serem alterados
+
+
+
+function display(form){
+if (form.username.value=="admin") { 
+		if (form.password.value=="aqws") {              
+										location="https://anderson-39bae.web.app/paginas/index.html" 
+											} else {
+													alert("Senha ou nome incorretos")
+													}
+								} else {  alert("Senha ou nome incorretos")
+										}
+						}
+			
