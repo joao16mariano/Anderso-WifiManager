@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0028)https://silva-c6f04.web.app/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Documento sem título</title>
+<link type="text/css" rel="stylesheet" href="./index_files/estilos.css">
+<style type="text/css">
+</style>
+
+</head>
+
+<body>
+  <table width="800" border="0" align="center" class="FixoNoTopo2">
+  <tbody><tr>
+    <td><img src="./index_files/cabeca.jpg" width="800" height="143"></td>
+  </tr>
+</tbody></table>
+
+
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <th class="jms" scope="col">IOT Joao Mariano</th>   
+  </tr>
+</tbody></table>
+<table width="800" border="0" align="center">
+<tbody><tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo4">Controlando dispositivos na nuvem </td>
+  </tr>
+</tbody></table>
+
+
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td class="tipoClaro">Uma forma fácil e rápida de jogar seus dados para a nuvem, sem se queimar configurando servidores.</td>
+  </tr>
+  <tr>
+    <td class="tipo">Quando desenvolvemos dispositivos conectados, um dos pilares que devemos considerar é que normalmente eles devem poder receber comandos e consultar seu estado atual em tempo real. O dispositivo consegue manter seu estado atual localmente, por meio de variáveis ou alguma forma de armazenamento interno, mas como fazer isso para consulta por dispositivos externos ?</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Na perspectiva de software, esse estado pode ser uma leitura direta da voltagem em um pino digital, podendo ser HIGH ou LOW, alguma leitura analógica de um sensor ou um leitura de um sensor ou componente utilizando um protocolo I²C, Serial, etc. Normalmente nós mantemos isso no lado da aplicação embarcada ao invés de sempre ficar consultando as entradas e saídas do dispositivos, mudando esses valores quando alguma alteração ocorre ou por algum período definido de tempo.</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Mas e quando precisamos saber esse estado de fora do dispositivo, como na Web ou em um aplicativo ? Não podemos confiar em consultar diretamente o dispositivo, pois ele pode estar em estado de sleep para economizar energia ou não estar acessível atualmente na rede. Uma solução é espelhar o último estado do dispositivo na nuvem, para que possamos consultar mesmo que o dispositivo esteja inacessível.</td>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Existem várias maneiras de se fazer isso, diversos protocolos e padrões arquiteturais para cada situação, mas hoje eu vou me ater a mostrar para vocês como fazer isso de forma bem facilitada utilizando o Firebase integrado com um ESP8266, programando tudo com o ecossistema do Arduino e um pouquinho de HTML e JS para exibir os dados. Mas sem se queimar configurando servidores e tudo mais.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">O que nós vamos construir</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Vamos conectar diretamente o nosso dispositivo na nuvem do Google e no Firebase,  podendo controlar um atuador direto no dispositivo (neste caso vários LEDs). Os LEDs podem serem trocados facilmente por  relés e acionar uma lampada por exemplo ou outros dispositivos.</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+   <tr>
+    <td class="tipo">Depois será feito um site simples, utilizando tecnologias web, HTML5, CSS3 e Javacript, sendo hospedado diretamente no Firebase Hosting, para visualizar e controlar nosso dispositivo direto pela Web. A carinha da nossa aplicação vai ser essa da imagem. Podendo ser acessado <a href="https://casa-12749.web.app/">Aqui.</a></td>
+  </tr>
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><a href="https://casa-12749.web.app/"><img src="./index_files/controle.jpg" width="614" height="735"></a></td>
+  </tr>
+</tbody></table>
+
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="./index_files/LOVE.jpg" width="614" height="238"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo4">Plataforma Firebase</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">O Firebase hoje, após a aquisição do Google, virou uma plataforma muito completa para se desenvolver aplicações. Podendo ser integrado em vários pontos partes da sua aplicação, ele conta com diversos produtos, sendo que eu considero os principais:</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo"><span class="tipoNegrito">Autenticação</span> com redes sociais de forma MUITO facilitada.</td>
+  </tr>
+  <tr> 
+  </tr>
+  <tr>
+    <td class="tipo"><span class="tipoNegrito">Armazenamento</span> de arquivos.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo"><span class="tipoNegrito">Analytics</span> para seu aplicativo nativo em Android e iOS.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo"><span class="tipoNegrito">Hosting</span> de aplicações Web — Vamos usar para hospedar nossa aplicação.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo"><span class="tipoNegrito">Notificações</span> Push para aplicativos iOS e Android.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">E claro o Firebase Realtime Database que vou falar mais a frente.</td>
+  </tr>
+  <tr>
+    <td><img src="./index_files/Firebase.jpg" width="663" height="409"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoClaro">O ecossistema do Firebase tomou fermento depois que foi adquirido pelo Google</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Hoje ele possui bibliotecas para que podem ser utilizadas para integrar com o Firebase, então não vai faltar formas de se conectar com esses serviços:</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Aplicativos móveis iOS e Android,</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Games com a Unity</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Admin <span class="tipoNegrito">SDK</span> para seu backend em NodeJS e Java</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">A clássica <span class="tipoNegrito">SDK</span> para a Web em Javascript.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">E ma equipe do Google criou a biblioteca para utilizar o Firebase com o <span class="tipoNegrito">Arduino</span> também, com ela que vamos conseguir enviar os dados para lá.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo"><span class="tipoNegrito">O Firebase Realtime Database</span> é uma tecnologia muito utilizada para manter estados em tempo real, fornecendo esse sincronismo de graça para todos os clientes conectados. Seu armazenamento funciona em forma de árvores ou documento <span class="tipoNegrito">JSON</span> e utilizando uma biblioteca cliente dele (que existe para diversas linguagens) você pode enviar e subscrever para qualquer caminho da árvore para receber e enviar notificações das mudanças nos dados.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><a href="https://cloud.google.com/solutions/iot-overview"><img src="./index_files/firebase2.jpg" width="663" height="425"></a><a href="https://cloud.google.com/solutions/iot-overview">https://cloud.google.com/solutions/iot-overview</a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><span class="tipoClaro">Arquitetura IoT utilizando o Firebase —</span> <a href="https://cloud.google.com/solutions/iot-overview"><span class="tipoNegrito">https://cloud.google.com/solutions/iot-overview</span></a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Aproveite e já crie uma conta e um projeto no console do Firebase. No console do projeto conseguimos editar e visualizar os dados em nosso banco em tempo real. Vamos precisar de algumas informações do console para poder configurar nosso dispositivo IoT e a aplicação Web.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><a href="https://firebase.google.com/"><img src="./index_files/Firebase3.jpg" width="672" height="161" longdesc="https://firebase.google.com/"></a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">1 - Vá para a seção Database.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">2 - Anote a URL que aparece com o formato https://nome-do-projeto.firebaseio.com/</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">3 - Agora clique na engrenagem no canto superior esquerdo, do lado de Overview e depois em Configurações do Projeto.</td>
+  </tr>
+</tbody></table>
+
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">4 - Vá para a aba Contas de Serviço &gt; Segredos do Banco de Dados.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">5 - Clique em “Mostrar” e anote o segredo de banco, isso serve como chave para manipular os dados do Firebase.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Ao final desses passos você deve ter a URL do seu banco e um Segredo para fazer a manipulação dos dados.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">Ferramentas</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Precisamos configurar a IDE do Arduino para programar o ESP8266 e para isso eu recomendo fortemente o tutorial a seguir do blog do FilipeFlop.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">Como programar o NodeMCU com IDE Arduino | Blog FILIPEFLOP</td>
+  </tr>
+  <tr>
+    <td class="tipo">O NodeMCU pode ser programado usando Lua, como vimos no post Como Programar o Módulo ESP8266 NodeMCU. Apesar da…</td>
+  </tr>
+  <tr>
+    <td class="tipoClaro"><a href="https://www.filipeflop.com/blog/programar-nodemcu-com-ide-arduino/">blog.filipeflop.com</a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Depois disso precisamos instalar a biblioteca firebase-arduino, que pode ser encontrada no Github do Firebase. Siga os passos para fazer a instalação.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF" class="tipoNegrito"><a href="https://github.com/FirebaseExtended/firebase-arduino">GitHub - firebase/firebase-arduino: Arduino samples for Firebase.</a></td>
+  </tr>
+  <tr>
+    <td class="tipoClaro">firebase-arduino - Arduino samples for Firebase.</td>
+  </tr>
+  <tr>
+    <td class="tipoClaro">github.com</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">1 - Faça o download do projeto em seu computador. <a href="https://github.com/joao16mariano/AcionaRele">Aqui</a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">2 - Inicie a IDE do Arduino</td>
+  </tr>
+  <tr>
+    <td class="tipo">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">3 - Adicione a biblioteca indo no menu Sketch &gt; Include Library &gt; Add .ZIP Library…</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">4 - Escolha o arquivo firebase-arduino-master.zip que você baixou anteriormente.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</tbody></table>
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td class="tipo">1 - Usando o Library Manager da IDE do Arduino. Você pode ir no menu Sketch &gt; Incluir Biblioteca &gt; Gerenciar Bibliotecas. Depois disso é só buscar por “Firebase-arduino-master.zip”</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">A biblioteca do Firebase tem que ser instalada manualmente por que ela não está publicada no repositório do Arduino.</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">Código do ESP8266</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">O código do arduino está neste projeto no Github, na pasta arduino. Você vai precisar trocar as seguintes variáveis para usar com o seu projeto no Firebase:
+
+</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">FIREBASE_HOST: preencha com a URL do seu banco no Firebase, obtida nos passos anteriores.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">FIREBASE_AUTH: aqui deve ser colocado o Segredo do seu banco no Firebase, também obtido nos passos anteriores</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">WIFI_SSID e WIFI_PASSWORD: você deve informar os dados para conectar na WiFi da sua casa.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito"> <a href="https://github.com/joao16mariano/AcionaRele">CÓDIGO DO TUTORIAL HOSPEDADO NO GitHub</a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Basicamente o que a aplicação faz é mudar o estado dos nós de true para false e vise versa. A estrutura no Firebase ficou assim:</td>
+  </tr>
+  <tr>
+    <td><img src="./index_files/esqueletoFirebase.jpg" width="539" height="297"></td>
+  </tr>
+  <tr>
+    <td class="tipoClaro">Estrutura da nossa aplicação</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Lembrando que no lugar dos LEDs podemos ter um módulos de relês e controlar uma lampadas e outros dispositivos, então não se limite aos LEDs.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Pela interface Web do Firebase você consegue alterar e inserir novos dados facilmente e depois de rodar a aplicação no ESP8266 você já vai conseguir ver os dados aparecendo automagicamente na interface.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito2">Criando nossa aplicação Web</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Agora falta a parte de controle na Web do nosso dispositivo. Vamos fazer um site simples, utilizando tecnologias web padrão, HTML5, CSS3 e Javacript, sendo hospedado diretamente no <span class="tipoNegrito">Firebase Hosting</span></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">Ferramentas e IDE</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Para fazer deploy da aplicação no <span class="tipoNegrito">Firebase</span> precisamos instalar o firebase-tools, que é uma ferramenta de linha de comando para gerenciar o banco de dados e hosting de aplicações dentro da plataforma <span class="tipoNegrito">Firebase</span>. Essa ferramenta é baseado em NodeJS, então precisamos instalar isso primeiro.</td>
+  </tr>
+</tbody></table>
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito">Download | Node.js</td>
+  </tr>
+  <tr>
+    <td class="tipoClaro"><a href="https://nodejs.org/en/download/">Download the Node.js source code or a pre-built installer for your platform, and start developing today.</a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Com o Node e NPM instalado é só rodar o comando:</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">npm install -g firebase-tools</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Ao final da instalação rode o comando a seguir e coloque suas credenciais do Firebase:</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">firebase login</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Vocês podem utilizar diversas IDEs para desenvolver o código em HTML e Javascript, vou colocar a seguir algumas, mas fica a seu critério escolher. Eu gosto bastante de utilizar o Dreamweaver.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Atom.io</td>
+  </tr>
+  <tr>
+    <td class="tipo">Webstorm Jetbrains</td>
+  </tr>
+  <tr>
+    <td class="tipo">Visual Studio Code</td>
+  </tr>
+  <tr>
+    <td class="tipo">Sublime Text</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito2">Programação</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Cria uma pasta para o seu projeto e utilize o comando dentro da pasta:</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">firebase init</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Com isso você vai vincular a pasta com o projeto criado no console do Firebase, então escolha corretamente o projeto que foi criado anteriormente. Ele vai criar a pasta <span class="tipoNegrito">public</span>, onde vão os arquivos que podem ser hospedados no Firebase e serem acessados na web e também alguns arquivos de configuração do projeto.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Um arquivo importante que devemos alterar agora é o <span class="tipoNegrito">database.rules.json</span>. Não vou me estender muito nele, mas basicamente com esse arquivo você consegue definir quem pode ler e escrever dentro do banco do Firebase, podendo definir regras e validações para os dados inseridos. Por enquanto vamos permitir leitura e escrita pra qualquer usuário, então mude para o conteúdo a seguir:</td>
+  </tr>
+  <tr>
+    <td><img src="./index_files/regras.jpg" width="400" height="221"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</tbody></table>
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td class="tipo">O <span class="tipoNegrito">firebase-tools</span> possui também um servidor embutido, então estando na pasta você pode rodar firebase serve, para iniciar um servidor web na pasta public na porta 5000 por padrão.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">A parte web também pode ser vista no Github, basicamente utilizei apenas Javascript, o framework CSS <span class="tipoNegrito">MaterializeCSS</span> e a biblioteca <span class="tipoNegrito">Chart.JS</span> para montar os gráficos. O código da aplicação pode ser visto em public/app.js e o front-end está todo contido em public/index.html</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipoNegrito"><a href="https://github.com/joao16mariano/AcionaRele">GitHub - Joao16mariano-Aciona Rele: [ ] Código do Tutorial de Arduino e Firebase…</a></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Para adequar a aplicação ao seu projeto próprio no Firebase, você deve alterar o começo do arquivo <span class="tipoNegrito">app.js</span>, com as configurações do console do projeto no Firebase. Para obter as configurações sigam os passos:</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">1 - Clique em Overview no menu lateral.
+
+</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">2 - Depois em “Adicionar o Firebase ao seu aplicativo da Web”.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">3 - Dentro da janela que abriu, copie o trecho dentro da segunda tag script e substitua pelo código correspondente no arquivo app.js.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Agora é só dar deploy da aplicação no hosting do Firebase. É só rodar o comando <span class="tipoNegrito">firebase deploy</span> que você vai enviar os arquivos da pasta public, pra lá e o vai ser exibido o link para acessar sua aplicação online.</td>
+  </tr>
+  <tr>
+    <td><img src="./index_files/fazenUploud.jpg" width="625" height="402"></td>
+  </tr>
+  <tr>
+    <td class="tipoClaro">AEHOO — Mãe to na nuvem</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Se deu tudo certo até aqui então pode comemorar que você uma aplicação IoT completa com controle via Web e mantendo o estado em tempo real na nuvem.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</tbody></table>
+<table width="800" border="0" align="center">
+  <tbody><tr>
+    <td class="tipo">O Firebase é uma plataforma bem bacana para se utilizar hoje em dia, principalmente como foi comentado no começo do post, sobre manter estados em tempo real da sua aplicação, pois o Firebase te dá de graça todo esse sincronismo entre todos os clientes conectados.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tipo">Isso sem contar todo o ecossistema de produtos envolta dele, como foi mostrado a parte de Hosting, podendo hospedar sua aplicação de graça e ainda com HTTPS, o que é bastante importante hoje na web.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</tbody></table>
+
+
+
+
+
+
+
+</body></html>
